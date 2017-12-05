@@ -46,6 +46,7 @@ class Tree(object):
     def a_travel(self):
         if self.root is None:
             print("error")
+            return
 
         stack = []
         cur_node = self.root
@@ -71,6 +72,7 @@ class Tree(object):
     def b_travel(self):
         if self.root is None:
             print("error")
+            return
 
         stack = []
         cur_node = self.root
@@ -89,34 +91,13 @@ class Tree(object):
                     print("end")
                     return
     #后序遍历
-    def c_travel(self):
-        if self.root is None:
-            print("error")
+def c_travel(root):
+    if root is None:
+        return
+    c_travel(root.lchild)
+    c_travel(root.rchild)
+    print(root.elem)
 
-        stack = [self.root]
-
-        pre_node = None
-
-        while stack:
-            cur_node = stack.index(len(stack)-1)
-
-            if pre_node is not None or pre_node.lchild == cur_node or pre_node.rchild == cur_node:
-
-                if pre_node.lchild is not None:
-                    stack.append(pre_node.lchild)
-                elif pre_node.rchild is not None:
-                    stack.append(pre_node.rchild)
-
-            elif cur_node.lchild == pre_node:
-
-                if cur_node.rchild is not None:
-                    stack.append(cur_node.rchild)
-
-            else:
-                print(cur_node.elem)
-                stack.pop()
-
-            pre_node = cur_node
 
 
 def main():
@@ -132,7 +113,7 @@ def main():
     tree.add(8)
     tree.add(9)
     #  tree.aa_travel(tree.root)
-    tree.c_travel()
+    c_travel(tree.root)
 
 
 if __name__ == '__main__':
