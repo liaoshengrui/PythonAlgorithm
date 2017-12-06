@@ -1,7 +1,7 @@
 # coding:utf-8
 
 # 冒泡排序
-def a_sort(list):
+def bubble_sort(list):
     # 外圈循环缩小
     n = len(list)
     for i in range(len(list) - 1):
@@ -15,7 +15,7 @@ def a_sort(list):
 
 
 # 插入排序
-def b_sort(list):
+def insertion_sort(list):
     for i in range(1, len(list)):
         for j in range(i, 0, -1):
             if list[j] < list[j - 1]:
@@ -23,7 +23,7 @@ def b_sort(list):
 
 
 # 选择排序
-def c_sort(list):
+def selection_sort(list):
     size = len(list)
     for i in range(size - 1):
         min = i
@@ -35,17 +35,56 @@ def c_sort(list):
 
 
 # 快速排序
-def d_sort(list):
-    pass
+def quick_sort(list, frist, last):
+    if frist >= last:
+        return
+
+    mid_value = list[frist]
+    low = frist
+    high = last
+
+    while low < high:
+
+        while low < high and list[high] >= mid_value:
+            high -= 1
+
+        list[low] = list[high]
+
+        while low < high and list[low] < mid_value:
+            low += 1
+
+        list[high] = list[low]
+
+    list[low]=mid_value
+    quick_sort(list, frist, last-1)
+    quick_sort(list, frist+1, last)
+
+
+# 希尔排序
+def shell_sort(list):
+    size = len(list)
+    gap = size // 2
+
+    while gap > 0:
+        for j in range(gap, size):
+            i = j
+            while i > 0:
+                if list[i] < list[i - gap]:
+                    list[i], list[i - gap] = list[i - gap], list[i]
+                    i -= gap
+                else:
+                    break
+        gap //= 2
 
 
 def main():
     list = [8, 3, 6, 4, 9, 5, 9]
-    list2 = [8, 3, 6, 4, 9, 5, 9]
-    a_sort(list)
-    c_sort(list2)
+    bubble_sort(list)
     print(list)
-    print(list2)
+
+    list = [8, 3, 6, 4, 9, 5, 9]
+    quick_sort(list, 0, len(list) - 1)
+    print(list)
 
 
 if __name__ == '__main__':
